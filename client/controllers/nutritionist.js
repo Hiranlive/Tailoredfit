@@ -5,6 +5,7 @@ application.controller('NutritionistCtrl', function($scope, $http, $location, $r
         $http.get(API_ENDPOINT.url + '/is_logged').then(function(result) {
         	if(result.data.success){
         		$http.get(API_ENDPOINT.url + '/nutritionists').then(function(response) {
+        			$scope.condition = true;
 		        	$scope.nutritionists = response['data'];
 		        }, function(errMsg) {
 		            alert(errMsg.data);
@@ -104,6 +105,9 @@ application.controller('NutritionistCtrl', function($scope, $http, $location, $r
             if(!result.data.success){
                 console.log("Admin Authorization Required!");
                 window.location.href='#!/';
+            }
+            else{
+            	$scope.condition = true;
             }
         }, function(errMsg) {
             console.log(errMsg.data);

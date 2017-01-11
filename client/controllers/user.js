@@ -76,6 +76,9 @@ application.controller('UserCtrl', function($scope, $http, AuthService, API_ENDP
                 console.log("Admin Authorization Required!");
                 window.location.href='#!/';
             }
+            else{
+                $scope.condition = true;
+            }
         }, function(errMsg) {
             console.log(errMsg.data);
             window.location.href='#!/';

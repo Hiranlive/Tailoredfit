@@ -5,6 +5,7 @@ application.controller('TrainerCtrl', function($scope, $http, $location, $routeP
         $http.get(API_ENDPOINT.url + '/is_logged').then(function(result) {
         	if(result.data.success){
         		$http.get(API_ENDPOINT.url + '/trainers').then(function(response) {
+                    $scope.condition = true;
 		        	$scope.trainers = response['data'];
 		        }, function(errMsg) {
 		            alert(errMsg.data);
@@ -105,6 +106,9 @@ application.controller('TrainerCtrl', function($scope, $http, $location, $routeP
             if(!result.data.success){
                 console.log("Admin Authorization Required!");
                 window.location.href='#!/';
+            }
+            else{
+                $scope.condition = true;
             }
         }, function(errMsg) {
             console.log(errMsg.data);
