@@ -1,0 +1,256 @@
+<div id="wrapper">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="text-center">
+                <a href="index.html" class="logo"><i class="md md-equalizer"></i> <span>Admin Panel</span> </a>
+            </div>
+        </div>
+
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="">
+                    <div class="pull-left">
+                        <button class="button-menu-mobile open-left waves-effect">
+                            <i class="md md-menu"></i>
+                        </button>
+                        <span class="clearfix"></span>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right pull-right">
+                        <li class="hidden-xs">
+                            <a href="#" class="right-bar-toggle waves-effect waves-light" ng-click="logout()">
+                                <i class="fa fa-power-off"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="left side-menu">
+        <div class="sidebar-inner slimscrollleft">
+            <div id="sidebar-menu">
+                <ul>
+                    <li class="menu-title">Tailoredfit</li>
+
+                    <li>
+                        <a href="#!/gyms" class="waves-effect waves-primary">
+                            <i class="ti-email"></i>
+                            <span>Gyms</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/add_gym" class="waves-effect waves-primary active">
+                            <i class="ti-email"></i>
+                            <span>Add Gym</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/trainers" class="waves-effect waves-primary">
+                            <i class="ti-menu-alt"></i>
+                            <span>Trainers</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/add_trainer" class="waves-effect waves-primary">
+                            <i class="ti-gift"></i>
+                            <span>Add Trainer</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/nutritionists" class="waves-effect waves-primary">
+                            <i class="ti-menu-alt"></i>
+                            <span>Nutritionists</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/add_nutritionist" class="waves-effect waves-primary">
+                            <i class="ti-gift"></i>
+                            <span>Add Nutritionist</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/users" class="waves-effect waves-primary">
+                            <i class="ti-menu-alt"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="user-detail">
+            <div class="dropup">
+                <div class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
+                    <img  src="assets/images/users/avatar-2.jpg" alt="user-img" class="img-circle">
+                    <span class="user-info-span">
+                        <h5 class="m-t-0 m-b-0">Admin User</h5>
+                        <p class="text-muted m-b-0">
+                            <small><i class="fa fa-circle text-success"></i> <span>Online</span></small>
+                        </p>
+                    </span>
+                </div>
+                <ul class="dropdown-menu">
+                    <!-- <li><a href="settings.html"><i class="md md-settings"></i>Settings</a></li> -->
+                    <li><a href="#" ng-click="logout()"><i class="md md-settings-power"></i>Logout</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title">Add Gym</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <form class="form-horizontal" method="POST" ng-submit="addGym()">
+                        <div class="col-sm-2">
+                            <h4>Gym Name</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Gym Name" ng-model="gym.name">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Select Type</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <select class="form-control" ng-model="gym.type">
+                                <option disabled selected value>-- Select Type --</option>
+                                <option value="Gyms">Gyms</option>
+                                <option value="Studios">Studios</option>
+                                <option value="MMA">MMA</option>
+                                <option value="CrossFit">CrossFit</option>
+                                <option value="Competition">Competition</option>
+                            </select>
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Address</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Address" ng-model="gym.address">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Latitude</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Latitude" ng-model="gym.latitude">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Longitude</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Longitude" ng-model="gym.longitude">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Phone</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Phone" ng-model="gym.phone">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Price</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Price" ng-model="gym.price">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Week Day Hours</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Week Day Hours" ng-model="gym.week_day_hours">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Saturday Hours</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Saturday Hours" ng-model="gym.saturday_hours">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Website</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Website" ng-model="gym.website">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Profile Image</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="tex" required class="form-control" placeholder="Image URL" ng-model="gym.profile_image">
+                        </div>
+
+                        <div class="col-sm-6 text-right">
+                            <hr/>
+
+                            <button class="btn btn-success" type="submit">Add Gym</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer text-right">
+            Copyright 2016 &copy; <a href="/">Tailoredfit</a> | Developed By <a href="http://elegancetechnology.net/" target="_blank">Elegance Technology</a>
+        </footer>
+    </div>
+</div>
+
+<script src="assets/js/jquery.app.js"></script>

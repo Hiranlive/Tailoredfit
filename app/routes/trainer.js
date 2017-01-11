@@ -1,0 +1,69 @@
+var express  = require('express');
+var router = express.Router();
+
+Trainer = require('../models/trainer');
+
+router.get('/api/trainers', function function_name(req, res) {
+	Trainer.getTrainers(function(err, trainers) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(trainers);
+		}
+	}, 1000)
+});
+
+router.post('/api/trainers', function function_name(req, res) {
+	var trainer = req.body;
+
+	Trainer.addTrainer(trainer, function(err, trainer) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(trainer);
+		}
+	}, 1000)
+});
+
+router.get('/api/trainers/:_id', function (req, res) {
+	Trainer.getTrainerById(req.params._id, function(err, trainer) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(trainer);
+		}
+	})
+});
+
+router.put('/api/trainers/:_id', function function_name(req, res) {
+	var id = req.params._id;
+	var trainer = req.body;
+
+	Trainer.updateTrainer(id, trainer, {}, function(err, trainer) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(trainer);
+		}
+	})
+});
+
+router.delete('/api/trainers/:_id', function (req, res) {
+	var id = req.params._id;
+	var trainer = req.body;
+
+	Trainer.removeTrainer(id, function(err, trainer) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(trainer);
+		}
+	})
+});
+
+module.exports = router;

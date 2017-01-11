@@ -1,0 +1,17 @@
+{
+  "name": "TailoredFit",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "jwt-simple": "^0.5.1",
+    "mongoose": "^4.7.5",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1"
+  }
+}

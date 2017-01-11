@@ -1,0 +1,25 @@
+<div class="panel panel-default" ng-init="getInfo()">
+	<div class="panel-heading">
+		<h3 class="panel-title">Inside</h3>
+	</div>
+	<div class="panel-body">
+		<h1 class="title">Member area</h1>
+	    <div class="buttons">
+	      <button class="button button-clear" ng-click="logout()">Logout</button>
+	    </div>
+
+	    <div class="card">
+	      <div class="item item-text-wrap">
+	        {{memberinfo}}
+
+	        <!-- {{randomNumber}} -->
+	      </div>
+	    </div>
+	    <button class="button button-full button-assertive" ng-click="getInfo()">
+	      Get Info
+	    </button>
+	    <button class="button button-full button-assertive" ng-click="destroySession()">
+	      Destroy token
+	    </button>
+	</div>
+</div>

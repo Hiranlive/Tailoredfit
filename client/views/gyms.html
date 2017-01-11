@@ -1,0 +1,189 @@
+<div id="wrapper" ng-init="getGymDetails()">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="text-center">
+                <a href="index.html" class="logo"><i class="md md-equalizer"></i> <span>Admin Panel</span> </a>
+            </div>
+        </div>
+
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="">
+                    <div class="pull-left">
+                        <button class="button-menu-mobile open-left waves-effect">
+                            <i class="md md-menu"></i>
+                        </button>
+                        <span class="clearfix"></span>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right pull-right">
+                        <li class="hidden-xs">
+                            <a class="right-bar-toggle waves-effect waves-light" ng-click="logout()">
+                                <i class="fa fa-power-off"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="left side-menu">
+        <div class="sidebar-inner slimscrollleft">
+            <div id="sidebar-menu">
+                <ul>
+                    <li class="menu-title">Tailoredfit</li>
+
+                    <li>
+                        <a href="#!/gyms" class="waves-effect waves-primary active">
+                            <i class="ti-email"></i>
+                            <span>Gyms</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/add_gym" class="waves-effect waves-primary">
+                            <i class="ti-email"></i>
+                            <span>Add Gym</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/trainers" class="waves-effect waves-primary">
+                            <i class="ti-menu-alt"></i>
+                            <span>Trainers</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/add_trainer" class="waves-effect waves-primary">
+                            <i class="ti-gift"></i>
+                            <span>Add Trainer</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/nutritionists" class="waves-effect waves-primary">
+                            <i class="ti-menu-alt"></i>
+                            <span>Nutritionists</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/add_nutritionist" class="waves-effect waves-primary">
+                            <i class="ti-gift"></i>
+                            <span>Add Nutritionist</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#!/users" class="waves-effect waves-primary">
+                            <i class="ti-menu-alt"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="user-detail">
+            <div class="dropup">
+                <div class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
+                    <img  src="assets/images/users/avatar-2.jpg" alt="user-img" class="img-circle">
+                    <span class="user-info-span">
+                        <h5 class="m-t-0 m-b-0">Admin User</h5>
+                        <p class="text-muted m-b-0">
+                            <small><i class="fa fa-circle text-success"></i> <span>Online</span></small>
+                        </p>
+                    </span>
+                </div>
+                <ul class="dropdown-menu">
+                    <!-- <li><a href="settings.html"><i class="md md-settings"></i>Settings</a></li> -->
+                    <li><a href="#" ng-click="logout()"><i class="md md-settings-power"></i>Logout</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title">Gyms</h4>
+                        </div>
+                    </div>
+                </div>
+
+		        <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box product_sec">
+                            <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+						        <thead>
+						            <tr>
+						                <th>Name</th>
+						                <th>Address</th>
+						                <th>Latitude</th>
+						                <th>Longitude</th>
+						                <th>Phone</th>
+						                <th>Price</th>
+                                        <th>Week Day Hours</th>
+                                        <th>Saturday Hours</th>
+                                        <th>Website</th>
+                                        <th>Profile Image</th>
+                                        <th>Action</th>
+						            </tr>
+						        </thead>
+						        <tfoot>
+						            <tr>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Latitude</th>
+                                        <th>Longitude</th>
+                                        <th>Phone</th>
+                                        <th>Price</th>
+                                        <th>Week Day Hours</th>
+                                        <th>Saturday Hours</th>
+                                        <th>Website</th>
+                                        <th>Profile Image</th>
+                                        <th>Action</th>
+                                    </tr>
+						        </tfoot>
+						        <tbody>
+                                    <tr ng-repeat="gym in gyms">
+                                        <td>{{gym.name}}</td>
+                                        <td>{{gym.address}}</td>
+                                        <td>{{gym.latitude}}</td>
+                                        <td>{{gym.longitude}}</td>
+                                        <td>{{gym.phone}}</td>
+                                        <td>{{gym.price}}</td>
+                                        <td>{{gym.week_day_hours}}</td>
+                                        <td>{{gym.saturday_hours}}</td>
+                                        <td>{{gym.website}}</td>
+                                        <td class="text-center"><img ng-src="{{gym.profile_image}}" style="width:50px;"></td>
+                                        <td class="text-center">
+                                            <a href="#!/edit_gym/{{gym._id}}"><i class="fa fa-edit"></i></a>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a class="trash" ng-click="removeGym(gym._id)"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+						        </tbody>
+						    </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer text-right">
+            Copyright 2016 &copy; <a href="/">Tailoredfit</a> | Developed By <a href="http://elegancetechnology.net/" target="_blank">Elegance Technology</a>
+        </footer>
+    </div>
+</div>
+
+<script src="assets/js/jquery.app.js"></script>
