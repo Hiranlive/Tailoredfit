@@ -70,6 +70,18 @@ application.controller('UserCtrl', function($scope, $http, AuthService, API_ENDP
         });
     }
 
+    $scope.isAdminLogged = function() {
+        $http.get(API_ENDPOINT.url + '/is_logged').then(function(result) {
+            if(!result.data.success){
+                console.log("Admin Authorization Required!");
+                window.location.href='#!/';
+            }
+        }, function(errMsg) {
+            console.log(errMsg.data);
+            window.location.href='#!/';
+        });
+    };
+    
     $scope.logout = function() {
         AuthService.logout();
         window.location.href='#!/';
