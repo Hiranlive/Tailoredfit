@@ -21,9 +21,9 @@ app.use(morgan('dev'));
 // Use the passport package in our application
 app.use(passport.initialize());
 
-// demo Route (GET http://localhost:8080)
+// demo Route (GET http://54.226.115.31:8080)
 app.get('/', function(req, res) {
-    res.send('Hello! The API is at http://localhost:' + port + '/api');
+    res.send('Hello! The API is at http://54.226.115.31:' + port + '/api');
 });
 
 // connect to database
@@ -43,4 +43,4 @@ app.use('/', nutritionistRoutes);
 
 // Start the server
 app.listen(port);
-console.log('Tariloredfit started at : http://localhost:' + port);
+console.log('Tariloredfit started at : http://54.226.115.31:' + port);
