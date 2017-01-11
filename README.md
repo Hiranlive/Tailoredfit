@@ -1,2 +1,0 @@
-# Tailoredfit
-Tailoredfit Gym App

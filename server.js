@@ -43,4 +43,4 @@ app.use('/', nutritionistRoutes);
 
 // Start the server
 app.listen(port);
-console.log('Tariloredfit started at : http://54.218.176.105/:' + port);
+console.log('Tariloredfit started at : http://localhost:' + port);
