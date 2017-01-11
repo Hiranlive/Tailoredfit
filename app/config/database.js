@@ -1,4 +1,4 @@
 module.exports= {
     'secret': 'TaileredFitSecret',
-    'database': 'mongodb://ec2-54-218-176-105.us-west-2.compute.amazonaws.com/TaileredFit'
+    'database': 'mongodb://elegance:elegance2345@ec2-54-226-115-31.compute-1.amazonaws.com:27017/tailoredfit'
 };
