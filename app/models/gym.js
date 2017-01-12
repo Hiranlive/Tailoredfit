@@ -7,7 +7,7 @@ var gymSchema = mongoose.Schema({
 		type : String,
 		require : true
 	},
-	gym_type : {
+	type : {
 		type : String,
 		require : true
 	},
