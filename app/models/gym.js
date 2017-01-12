@@ -51,6 +51,11 @@ module.exports.getGymById = function(id, callback) {
 	Gym.findById(id, callback)
 }
 
+// Get Gym By Type
+module.exports.getGymByType = function(type, callback) {
+	Gym.find({'type':type}, callback);
+}
+
 // Add Gym
 module.exports.addGym = function(gym_item, callback) {
 	Gym.create(gym_item, callback);

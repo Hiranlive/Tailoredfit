@@ -38,6 +38,17 @@ router.get('/api/gyms/:_id', function (req, res) {
 	})
 });
 
+router.get('/api/gym_type/:_type', function (req, res) {
+	Gym.getGymByType(req.params._type, function(err, gym) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(gym);
+		}
+	})
+});
+
 router.put('/api/gyms/:_id', function function_name(req, res) {
 	var id = req.params._id;
 	var gym = req.body;
