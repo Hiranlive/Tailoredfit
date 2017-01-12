@@ -7,7 +7,7 @@ var gymSchema = mongoose.Schema({
 		type : String,
 		require : true
 	},
-	type : {
+	gym_type : {
 		type : String,
 		require : true
 	},
@@ -71,7 +71,7 @@ module.exports.updateGym = function(id, gym_item, options, callback) {
 	
 	var update = {
 		name : gym_item.name,
-		type : gym_item.type,
+		type : gym_item.gym_type,
 		address : gym_item.address,
 		latitude : gym_item.latitude,
 		longitude : gym_item.longitude,
