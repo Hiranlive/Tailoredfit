@@ -31,6 +31,7 @@ application.controller('UserCtrl', function($scope, $http, AuthService, API_ENDP
         $http.get(API_ENDPOINT.url + '/is_logged').then(function(result) {
             if(result.data.success){
                 $http.get(API_ENDPOINT.url + '/users').then(function(response) {
+                    $scope.condition = true;
                     $scope.users = response['data'];
                 }, function(errMsg) {
                     alert(errMsg.data);
