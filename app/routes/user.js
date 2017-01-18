@@ -267,6 +267,38 @@ router.get('/api/is_logged_user', passport.authenticate('jwt', {
     }
 });
 
+router.get('/api/user_details', passport.authenticate('jwt', {
+    session: false
+}), function(req, res) {
+    var token = getToken(req.headers);
+
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+        User.findOne({
+            id : decoded.id
+        }, function(err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                return res.status(403).send({
+                    success: false,
+                    msg: 'Authentication failed. User not found.'
+                });
+            } else {
+                res.json({
+                    success: true,
+                    msg: user
+                });
+            }
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+});
+
 router.put('/api/update_user_settings', passport.authenticate('jwt', {
     session: false
 }), function(req, res) {
@@ -295,7 +327,7 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
             else{
                 res.json({
                     success: true,
-                    msg: 'Successful updated user.'
+                    msg: 'User updated successfully!'
                 });
             }
         });
