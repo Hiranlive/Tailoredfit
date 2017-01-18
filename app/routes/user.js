@@ -283,21 +283,22 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
         //     password: req.body.password
         // });
 
-        User.updateUser(decoded._id, req.body, {}, function(err, user) {
-			if (err) {
+        User.findOneAndUpdate({
+            id : decoded.id
+        }, req.body, {}, function(err, user) {
+            if (err) {
                 res.json({
                     success: false,
-                    msg: 'Username already exists.'
+                    msg: 'Invalid request.'
                 });
             }
             else{
                 res.json({
                     success: true,
-                    msg: 'Successful created new user.'
+                    msg: 'Successful updated user.'
                 });
             }
-		})
-
+        });
     } else {
         return res.status(403).send({
             success: false,

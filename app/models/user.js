@@ -79,19 +79,19 @@ userSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-userSchema.methods.updateUser = function (id, User, options, callback) {
-    var query = {_id : id};
+// userSchema.methods.updateUser = function (id, User, options, callback) {
+//     var query = {_id : id};
     
-    var update = {
-        name : User.name,
-        email : User.email,
-        type : User.type,
-        password : User.password,
-        phone : User.phone
-    };
+//     var update = {
+//         name : User.name,
+//         email : User.email,
+//         type : User.type,
+//         password : User.password,
+//         phone : User.phone
+//     };
 
-    User.findOneAndUpdate(query, update, options, callback);
-};
+//     User.findOneAndUpdate(query, update, options, callback);
+// };
 
 userSchema.methods.getUsers = function (callback, limit) {
     User.find(callback).limit(limit);
