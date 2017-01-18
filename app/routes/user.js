@@ -267,7 +267,7 @@ router.get('/api/is_logged_user', passport.authenticate('jwt', {
     }
 });
 
-router.post('/api/update_user_settings', passport.authenticate('jwt', {
+router.put('/api/update_user_settings', passport.authenticate('jwt', {
     session: false
 }), function(req, res) {
     var token = getToken(req.headers);

@@ -33,21 +33,6 @@ module.exports.getUserById = function(id, callback) {
     User.findById(id, callback)
 }
 
-// // Update User
-module.exports.updateUser = function(id, User, options, callback) {
-    var query = {_id : id};
-    
-    var update = {
-        name : User.name,
-        email : User.email,
-        type : User.type,
-        password : User.password,
-        phone : User.phone
-    };
-
-    User.findOneAndUpdate(query, update, options, callback);
-}
-
 // // Remove User
 // module.exports.removeUser = function(id, callback) {
 //     var query = {_id : id};
@@ -92,6 +77,20 @@ userSchema.methods.comparePassword = function (passw, cb) {
         }
         cb(null, isMatch);
     });
+};
+
+userSchema.methods.updateUser = function (id, User, options, callback) {
+    var query = {_id : id};
+    
+    var update = {
+        name : User.name,
+        email : User.email,
+        type : User.type,
+        password : User.password,
+        phone : User.phone
+    };
+
+    User.findOneAndUpdate(query, update, options, callback);
 };
 
 userSchema.methods.getUsers = function (callback, limit) {
