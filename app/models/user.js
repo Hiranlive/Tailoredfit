@@ -34,19 +34,19 @@ module.exports.getUserById = function(id, callback) {
 }
 
 // // Update User
-// module.exports.updateUser = function(id, User, options, callback) {
-//     var query = {_id : id};
+module.exports.updateUser = function(id, User, options, callback) {
+    var query = {_id : id};
     
-//     var update = {
-//         name : User.name,
-//         email : User.email,
-//         type : User.type,
-//         password : User.password,
-//         phone : User.phone
-//     };
+    var update = {
+        name : User.name,
+        email : User.email,
+        type : User.type,
+        password : User.password,
+        phone : User.phone
+    };
 
-//     User.findOneAndUpdate(query, update, options, callback);
-// }
+    User.findOneAndUpdate(query, update, options, callback);
+}
 
 // // Remove User
 // module.exports.removeUser = function(id, callback) {

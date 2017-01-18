@@ -267,6 +267,45 @@ router.get('/api/is_logged_user', passport.authenticate('jwt', {
     }
 });
 
+router.put('/api/update_user_settings', passport.authenticate('jwt', {
+    session: false
+}), function(req, res) {
+    var token = getToken(req.headers);
+    console.log('the token: ' + token);
+
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+
+        var updateUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            password: req.body.password
+        });
+
+        User.updateUser(decoded._id, updateUser, {}, function(err, user) {
+			if (err) {
+                res.json({
+                    success: false,
+                    msg: 'Username already exists.'
+                });
+            }
+            else{
+                res.json({
+                    success: true,
+                    msg: 'Successful created new user.'
+                });
+            }
+		})
+
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+});
+
 router.get('/api/bookmarks', passport.authenticate('jwt', {
     session: false
 }), function(req, res) {
