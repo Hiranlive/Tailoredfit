@@ -285,10 +285,7 @@ router.get('/api/user_details', passport.authenticate('jwt', {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
-                res.json({
-                    success: true,
-                    msg: user
-                });
+                res.json(user);
             }
         });
     } else {
