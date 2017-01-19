@@ -275,6 +275,8 @@ router.get('/api/user_details', passport.authenticate('jwt', {
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
+            name: decoded.name,
+            type : "Normal",
             id : decoded.id
         }, function(err, user) {
             if (err) throw err;
@@ -304,15 +306,10 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
 
     if (token) {
         var decoded = jwt.decode(token, config.secret);
-
-        // var updateUser = new User({
-        //     name: req.body.name,
-        //     email: req.body.email,
-        //     phone: req.body.phone,
-        //     password: req.body.password
-        // });
-
+        
         User.findOneAndUpdate({
+            name: decoded.name,
+            type : "Normal",
             id : decoded.id
         }, req.body, {}, function(err, user) {
             if (err) {
