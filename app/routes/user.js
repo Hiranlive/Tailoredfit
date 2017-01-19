@@ -21,7 +21,7 @@ router.post('/api/signup', function(req, res) {
         var newUser = new User({
             name: req.body.name,
             email: req.body.email,
-            type: "Normal",
+            type: "Admin",
             phone: req.body.phone,
             password: req.body.password
         });
