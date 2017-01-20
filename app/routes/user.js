@@ -302,27 +302,39 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
     session: false
 }), function(req, res) {
     var token = getToken(req.headers);
-    console.log('the token: ' + token);
+    var updateUser = req.body;
 
     if (token) {
-        var decoded = jwt.decode(token, config.secret);
-        
-        User.findOneAndUpdate({
+    	var decoded = jwt.decode(token, config.secret);
+        User.findOne({
             name: decoded.name,
             type : "Normal",
             id : decoded.id
-        }, req.body, {}, function(err, user) {
-            if (err) {
-                res.json({
+        }, function(err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                return res.status(403).send({
                     success: false,
-                    msg: 'Invalid request.'
+                    msg: 'Authentication failed. User not found.'
                 });
-            }
-            else{
-                res.json({
-                    success: true,
-                    msg: 'User updated successfully!'
-                });
+            } else {
+            	User.updateUser(decoded.id, updateUser, {}, function(err, user_res) {
+					if(err){
+						res.json({
+		                    success: false,
+		                    msg: 'Invalid request.'
+		                });
+					}
+					else{
+						// res.json({
+		    //                 success: true,
+		    //                 msg: 'User updated successfully!'
+		    //             });
+
+		    			res.json(user_res);
+					}
+				})
             }
         });
     } else {

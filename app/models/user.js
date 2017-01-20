@@ -79,19 +79,42 @@ userSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-// userSchema.methods.updateUser = function (id, User, options, callback) {
-//     var query = {_id : id};
+userSchema.methods.updateUser = function (id, User, options, callback) {
+    var query = {_id : id};
     
-//     var update = {
-//         name : User.name,
-//         email : User.email,
-//         type : User.type,
-//         password : User.password,
-//         phone : User.phone
-//     };
+    var updatedUser;
 
-//     User.findOneAndUpdate(query, update, options, callback);
-// };
+    if(User.password != "") {
+        bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+                return next(err);
+            }
+            bcrypt.hash(User.password, salt, function (err, hash) {
+                if (err) {
+                    return next(err);
+                }
+
+                updatedUser = {
+                    name : User.name,
+                    email : User.email,
+                    type : User.type,
+                    password : hash,
+                    phone : User.phone
+                };
+            });
+        });
+    }
+    else {
+        updatedUser = {
+            name : User.name,
+            email : User.email,
+            type : User.type,
+            phone : User.phone
+        };
+    }
+
+    User.findOneAndUpdate(query, updatedUser, options, callback);
+};
 
 userSchema.methods.getUsers = function (callback, limit) {
     User.find(callback).limit(limit);
