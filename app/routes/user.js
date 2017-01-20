@@ -327,11 +327,6 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
 		                });
 					}
 					else{
-						// res.json({
-		    //                 success: true,
-		    //                 msg: 'User updated successfully!'
-		    //             });
-
 		    			res.json(user_res);
 					}
 				})

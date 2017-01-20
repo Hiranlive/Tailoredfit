@@ -79,37 +79,38 @@ userSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-userSchema.methods.updateUser = function (id, User, options, callback) {
+userSchema.methods.updateUser = function (id, user, options, callback) {
     var query = {_id : id};
     
     var updatedUser;
 
-    if(User.password != "") {
+    if(user.password != "") {
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
                 return next(err);
             }
-            bcrypt.hash(User.password, salt, function (err, hash) {
+            
+            bcrypt.hash(user.password, salt, function (err, hash) {
                 if (err) {
                     return next(err);
                 }
 
                 updatedUser = {
-                    name : User.name,
-                    email : User.email,
-                    type : User.type,
+                    name : user.name,
+                    email : user.email,
+                    type : user.type,
                     password : hash,
-                    phone : User.phone
+                    phone : user.phone
                 };
             });
         });
     }
     else {
         updatedUser = {
-            name : User.name,
-            email : User.email,
-            type : User.type,
-            phone : User.phone
+            name : user.name,
+            email : user.email,
+            type : user.type,
+            phone : user.phone
         };
     }
 
