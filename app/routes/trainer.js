@@ -60,8 +60,7 @@ router.put('/api/rate_trainers/:_id', function function_name(req, res) {
 			throw err;
 		}
 		else{
-			var responseObject = res.json(trainer);
-
+			var responseObject = JSON.parse(trainer);
 
 			var newTrainer = {};
 
