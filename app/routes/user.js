@@ -474,7 +474,7 @@ router.delete('/api/bookmarks/:_id', passport.authenticate('jwt', {
 		            if (!bookmark) {
 		                return res.status(403).send({
 		                    success: false,
-		                    msg: 'Valid User Authentication Required.'
+		                    msg: 'Bookmark not found.'
 		                });
 		            } else {
 		                var id = req.params._id;
