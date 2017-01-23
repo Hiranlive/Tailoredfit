@@ -98,6 +98,17 @@ module.exports.updateTrainer = function(id, trainer, options, callback) {
 	Trainer.findOneAndUpdate(query, update, options, callback);
 }
 
+module.exports.updateTrainerRating = function(id, trainer, options, callback) {
+	var query = {_id : id};
+	
+	var update = {
+		total_rates : trainer.total_rates,
+		no_of_rates : trainer.no_of_rates
+	};
+
+	Trainer.findOneAndUpdate(query, update, options, callback);
+}
+
 // Remove Trainer
 module.exports.removeTrainer = function(id, callback) {
 	var query = {_id : id};
