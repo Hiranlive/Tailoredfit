@@ -240,8 +240,9 @@ router.get('/api/is_logged_user', passport.authenticate('jwt', {
 
     if (token) {
         var decoded = jwt.decode(token, config.secret);
+
         User.findOne({
-            name: decoded.name,
+            email : decoded.email,
             type : "Normal",
             id : decoded.id
         }, function(err, user) {
@@ -275,7 +276,7 @@ router.get('/api/user_details', passport.authenticate('jwt', {
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
-            name: decoded.name,
+            email : decoded.email,
             type : "Normal",
             id : decoded.id
         }, function(err, user) {
@@ -305,10 +306,11 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
     var updateUser = req.body;
 
     if (token) {
-    	var decoded = jwt.decode(token, config.secret);
+        var decoded = jwt.decode(token, config.secret);
+
         User.findOne({
-            name: decoded.name,
             type : "Normal",
+            email : decoded.email,
             id : decoded.id
         }, function(err, user) {
             if (err) throw err;
@@ -319,17 +321,20 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
-            	User.updateUser(decoded.id, updateUser, {}, function(err, user_res) {
-					if(err){
-						res.json({
-		                    success: false,
-		                    msg: 'Invalid request.'
-		                });
-					}
-					else{
-		    			res.json(user_res);
-					}
-				})
+                User.updateUser(decoded._id, updateUser, {}, function(err, user_res) {
+                    if(err){
+                        res.json({
+                            success: false,
+                            msg: 'Invalid request.'
+                        });
+                    }
+                    else{
+                        res.json({
+                            success: true,
+                            msg: 'User profile updated successfully.'
+                        });
+                    }
+                });
             }
         });
     } else {
@@ -347,22 +352,35 @@ router.get('/api/bookmarks', passport.authenticate('jwt', {
     console.log('the token: ' + token);
 
     if (token) {
-        var decoded = jwt.decode(token, config.secret);
+    	var decoded = jwt.decode(token, config.secret);
 
-        // res.json(decoded);
-
-        Bookmark.find({
-            'user_id': decoded._id,
-        }, function(err, bookmarks) {
+        User.findOne({
+            email : decoded.email,
+            type : "Normal",
+            id : decoded.id
+        }, function(err, user) {
             if (err) throw err;
 
-            if (!bookmarks) {
+            if (!user) {
                 return res.status(403).send({
                     success: false,
-                    msg: 'Authentication failed. Invalid user.'
+                    msg: 'Authentication failed. User not found.'
                 });
             } else {
-                res.json(bookmarks);
+                Bookmark.find({
+		            'user_id': decoded._id,
+		        }, function(err, bookmarks) {
+		            if (err) throw err;
+
+		            if (!bookmarks) {
+		                return res.status(403).send({
+		                    success: false,
+		                    msg: 'Bookmarks Empty!'
+		                });
+		            } else {
+		                res.json(bookmarks);
+		            }
+		        });
             }
         });
     } else {
@@ -377,32 +395,46 @@ router.post('/api/bookmarks', passport.authenticate('jwt', {
     session: false
 }), function(req, res) {
     var token = getToken(req.headers);
-    console.log('the token: ' + token);
 
     if (token) {
-        var decoded = jwt.decode(token, config.secret);
+    	var decoded = jwt.decode(token, config.secret);
 
-        var newBookmark = new Bookmark({
-            user_id: decoded._id,
-            type: req.body.type,
-            preview: req.body.preview
-        });
+        User.findOne({
+            email : decoded.email,
+            type : "Normal",
+            id : decoded.id
+        }, function(err, user) {
+            if (err) throw err;
 
-        newBookmark.save(function(err) {
-            if (err) {
-                res.json({
+            if (!user) {
+                return res.status(403).send({
                     success: false,
-                    msg: 'Error adding bookmark.'
+                    msg: 'Authentication failed. User not found.'
                 });
-            }
-            else{
-                res.json({
-                    success: true,
-                    msg: 'Successfully added bookmark.'
-                });
+            } else {
+                var newBookmark = new Bookmark({
+		            user_id: decoded._id,
+		            item_id: req.body.item_id,
+		            type: req.body.type,
+		            preview: req.body.preview
+		        });
+
+		        newBookmark.save(function(err) {
+		            if (err) {
+		                res.json({
+		                    success: false,
+		                    msg: 'Error adding bookmark.'
+		                });
+		            }
+		            else{
+		                res.json({
+		                    success: true,
+		                    msg: 'Successfully added bookmark.'
+		                });
+		            }
+		        });
             }
         });
-
     } else {
         return res.status(403).send({
             success: false,
@@ -420,28 +452,46 @@ router.delete('/api/bookmarks/:_id', passport.authenticate('jwt', {
     if (token) {
         var decoded = jwt.decode(token, config.secret);
 
-        Bookmark.findOne({
-            '_id' : '5875b248e189701d48ac4039',
-            'user_id' : decoded._id
-        }, function(err, bookmark) {
+        User.findOne({
+            email : decoded.email,
+            type : "Normal",
+            id : decoded.id
+        }, function(err, user) {
             if (err) throw err;
 
-            if (!bookmark) {
+            if (!user) {
                 return res.status(403).send({
                     success: false,
-                    msg: 'Valid User Authentication Required.'
+                    msg: 'Authentication failed. User not found.'
                 });
             } else {
-                var id = req.params._id;
+                Bookmark.findOne({
+		            '_id' : req.params._id;,
+		            'user_id' : decoded._id
+		        }, function(err, bookmark) {
+		            if (err) throw err;
 
-                Bookmark.removeBookmark(id, function(err, bookmark) {
-                    if(err){
-                        throw err;
-                    }
-                    else{
-                        res.json(bookmark);
-                    }
-                })
+		            if (!bookmark) {
+		                return res.status(403).send({
+		                    success: false,
+		                    msg: 'Valid User Authentication Required.'
+		                });
+		            } else {
+		                var id = req.params._id;
+
+		                Bookmark.removeBookmark(id, function(err, bookmark) {
+		                    if(err){
+		                        throw err;
+		                    }
+		                    else{
+		                        res.json({
+				                    success: true,
+				                    msg: 'Bookmark is removed successfully.'
+				                });
+		                    }
+		                })
+		            }
+		        });
             }
         });
     } else {

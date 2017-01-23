@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
     },
     email : {
         type : String,
+        unique : true,
         require : true
     },
     type : {
@@ -33,16 +34,9 @@ module.exports.getUserById = function(id, callback) {
     User.findById(id, callback)
 }
 
-// // Remove User
-// module.exports.removeUser = function(id, callback) {
-//     var query = {_id : id};
-
-//     User.remove(query, callback);
-// }
-
 userSchema.pre('save', function (next) {
     var user = this;
-
+    
     user.constructor.findOne({name: user.name}, function (err, user1) {
         if (err) throw err;
         if (!user1) {
@@ -79,44 +73,6 @@ userSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-userSchema.methods.updateUser = function (id, user, options, callback) {
-    var query = {_id : id};
-    
-    var updatedUser;
-
-    if(user.password != "") {
-        bcrypt.genSalt(10, function (err, salt) {
-            if (err) {
-                return next(err);
-            }
-            
-            bcrypt.hash(user.password, salt, function (err, hash) {
-                if (err) {
-                    return next(err);
-                }
-
-                updatedUser = {
-                    name : user.name,
-                    email : user.email,
-                    type : user.type,
-                    password : hash,
-                    phone : user.phone
-                };
-            });
-        });
-    }
-    else {
-        updatedUser = {
-            name : user.name,
-            email : user.email,
-            type : user.type,
-            phone : user.phone
-        };
-    }
-
-    User.findOneAndUpdate(query, updatedUser, options, callback);
-};
-
 userSchema.methods.getUsers = function (callback, limit) {
     User.find(callback).limit(limit);
 };
@@ -133,4 +89,31 @@ module.exports.removeUser = function(id, callback) {
     var query = {_id : id};
 
     User.remove(query, callback);
+}
+
+module.exports.updateUser = function(id, user, options, callback) {
+
+    var query = {_id : id};
+    
+    var updatedUser = {};
+
+
+    if(user.name != undefined) {
+        updatedUser['name'] = user.name;
+    }
+
+    if(user.phone != undefined) {
+        updatedUser['phone'] = user.phone;
+    }
+
+    if(user.password != undefined) {
+
+        var salt = bcrypt.genSaltSync(10);
+
+        var hash = bcrypt.hashSync(user.password, salt);
+
+        updatedUser['password'] = hash;
+    }
+    
+    User.findOneAndUpdate(query, updatedUser, options, callback);
 }
