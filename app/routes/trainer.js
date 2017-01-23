@@ -57,7 +57,10 @@ router.put('/api/rate_trainers/:_id', function function_name(req, res) {
 
 	Trainer.getTrainerById(id, function(err, trainer) {
 		if(err){
-			throw err;
+			res.json({
+                success: false,
+                msg: 'Trainer not found!'
+            });
 		}
 		else{
 			var newTrainer = {};
@@ -67,7 +70,10 @@ router.put('/api/rate_trainers/:_id', function function_name(req, res) {
 
             Trainer.updateTrainerRating(id, newTrainer, {}, function(err, trainer) {
 				if(err){
-					throw err;
+					res.json({
+		                success: false,
+		                msg: 'Invalid Request!'
+		            });
 				}
 				else{
 					res.json({

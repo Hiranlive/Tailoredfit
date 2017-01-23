@@ -57,7 +57,10 @@ router.put('/api/rate_nutritionists/:_id', function function_name(req, res) {
 
 	Nutritionist.getNutritionistById(id, function(err, nutritionist) {
 		if(err){
-			throw err;
+			res.json({
+                success: false,
+                msg: 'Nutritionist not found!'
+            });
 		}
 		else{
 			var newNutritionist = {};
@@ -67,7 +70,10 @@ router.put('/api/rate_nutritionists/:_id', function function_name(req, res) {
 
             Nutritionist.updateNutritionistRating(id, newNutritionist, {}, function(err, nutritionist) {
 				if(err){
-					throw err;
+					res.json({
+		                success: false,
+		                msg: 'Invalid Request!'
+		            });
 				}
 				else{
 					res.json({
