@@ -31,8 +31,6 @@ router.post('/api/signup', function(req, res) {
         console.log('create new user: ' + newUser);
 
         newUser.save(function(err) {
-            // console.log(err);
-            // console.log("<<<<<<<<<<<<<>>>>>>>>>>>>>>>>");
             if (err) {
                 res.json({
                     success: false,
