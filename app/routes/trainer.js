@@ -66,7 +66,7 @@ router.put('/api/rate_trainers/:_id', function function_name(req, res) {
 			var trainer = {};
 
 			trainer['total_rates'] = parseInt(trainer['total_rates']) + parseInt(req.body.rating);
-			trainer['no_of_rates'] = parseInt(trainer['no_of_rates'])++;
+			trainer['no_of_rates'] = parseInt(trainer['no_of_rates']) + 1;
 
 			Trainer.updateTrainer(id, trainer, {}, function(err, trainer) {
 				if(err){
