@@ -59,7 +59,7 @@ router.put('/api/rate_nutritionists/:_id', function function_name(req, res) {
 		if(err){
 			res.json({
                 success: false,
-                msg: 'Nutritionist not found!'
+                msg: 'Nutritionist not found'
             });
 		}
 		else{
@@ -72,13 +72,13 @@ router.put('/api/rate_nutritionists/:_id', function function_name(req, res) {
 				if(err){
 					res.json({
 		                success: false,
-		                msg: 'Invalid Request!'
+		                msg: 'Invalid Request'
 		            });
 				}
 				else{
 					res.json({
 		                success: true,
-		                msg: 'Rating Successful!'
+		                msg: 'Rating Successful'
 		            });
 				}
 			})

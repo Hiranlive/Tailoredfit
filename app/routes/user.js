@@ -8,6 +8,7 @@ require('../config/passport')(passport);
 
 User = require('../models/user');
 Bookmark = require('../models/bookmark');
+Message = require('../models/message');
 
 // create a new user account (POST http://localhost:8080/api/signup)
 router.post('/api/signup', function(req, res) {
@@ -492,6 +493,105 @@ router.delete('/api/bookmarks/:_id', passport.authenticate('jwt', {
 		                })
 		            }
 		        });
+            }
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+});
+
+router.get('/api/messages', passport.authenticate('jwt', {
+    session: false
+}), function(req, res) {
+    var token = getToken(req.headers);
+
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+
+        User.findOne({
+            email : decoded.email,
+            type : "Normal",
+            id : decoded.id
+        }, function(err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                return res.status(403).send({
+                    success: false,
+                    msg: 'Authentication failed. Invalid User!'
+                });
+            } else {
+                Message.find($or:[{
+                    'sender': decoded._id,
+                }, {
+                    'receiver': decoded._id,
+                }], function(err, messages) {
+                    if (err) throw err;
+
+                    if (!messages) {
+                        return res.status(403).send({
+                            success: false,
+                            msg: 'Empty!'
+                        });
+                    } else {
+                        res.json(messages);
+                    }
+                });
+            }
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+});
+
+router.post('/api/messages', passport.authenticate('jwt', {
+    session: false
+}), function(req, res) {
+    var token = getToken(req.headers);
+
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+
+        User.findOne({
+            email : decoded.email,
+            type : "Normal",
+            id : decoded.id
+        }, function(err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                return res.status(403).send({
+                    success: false,
+                    msg: 'Authentication failed. Invalid User!'
+                });
+            } else {
+                var newMessage = new Message({
+                    sender: decoded._id,
+                    receiver: req.body.receiver,
+                    timestamp: new Date().getTime()
+                    message_body: req.body.message_body
+                });
+
+                newMessage.save(function(err) {
+                    if (err) {
+                        res.json({
+                            success: false,
+                            msg: 'Message sending failed!'
+                        });
+                    }
+                    else{
+                        res.json({
+                            success: true,
+                            msg: 'Message is sent!'
+                        });
+                    }
+                });
             }
         });
     } else {
