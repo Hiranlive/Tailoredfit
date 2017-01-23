@@ -574,7 +574,7 @@ router.post('/api/messages', passport.authenticate('jwt', {
                 var newMessage = new Message({
                     sender: decoded._id,
                     receiver: req.body.receiver,
-                    timestamp: new Date().getTime()
+                    timestamp: new Date().getTime(),
                     message_body: req.body.message_body
                 });
 
