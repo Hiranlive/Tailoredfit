@@ -72,7 +72,7 @@ router.put('/api/rate_trainers/:_id', function function_name(req, res) {
 				else{
 					res.json({
 		                success: true,
-		                msg: 'Rating successful.'
+		                msg: 'Rating Successful!'
 		            });
 				}
 			})

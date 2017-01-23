@@ -78,6 +78,17 @@ module.exports.updateNutritionist = function(id, nutritionist, options, callback
 	Nutritionist.findOneAndUpdate(query, update, options, callback);
 }
 
+module.exports.updateNutritionistRating = function(id, nutritionist, options, callback) {
+	var query = {_id : id};
+	
+	var update = {
+		total_rates : nutritionist.total_rates,
+		no_of_rates : nutritionist.no_of_rates
+	};
+
+	Nutritionist.findOneAndUpdate(query, update, options, callback);
+}
+
 // Remove Nutritionist
 module.exports.removeNutritionist = function(id, callback) {
 	var query = {_id : id};

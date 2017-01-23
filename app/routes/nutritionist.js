@@ -52,6 +52,34 @@ router.put('/api/nutritionists/:_id', function function_name(req, res) {
 	})
 });
 
+router.put('/api/rate_nutritionists/:_id', function function_name(req, res) {
+	var id = req.params._id;
+
+	Nutritionist.getNutritionistById(id, function(err, nutritionist) {
+		if(err){
+			throw err;
+		}
+		else{
+			var newNutritionist = {};
+
+			newNutritionist['total_rates'] = parseInt(nutritionist['total_rates']) + parseInt(req.body.rating);
+			newNutritionist['no_of_rates'] = parseInt(nutritionist['no_of_rates']) + 1;
+
+            Nutritionist.updateNutritionistRating(id, newNutritionist, {}, function(err, nutritionist) {
+				if(err){
+					throw err;
+				}
+				else{
+					res.json({
+		                success: true,
+		                msg: 'Rating Successful!'
+		            });
+				}
+			})
+		}
+	})
+});
+
 router.delete('/api/nutritionists/:_id', function (req, res) {
 	var id = req.params._id;
 	var nutritionist = req.body;
