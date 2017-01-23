@@ -479,7 +479,7 @@ router.delete('/api/bookmarks/:_id', passport.authenticate('jwt', {
 		            } else {
 		                var id = req.params._id;
 
-		                Bookmark.removeBookmark(id, function(err, bookmark) {
+		                Bookmark.remove({_id : id}, function(err, bookmark) {
 		                    if(err){
 		                        throw err;
 		                    }
