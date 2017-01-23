@@ -466,7 +466,7 @@ router.delete('/api/bookmarks/:_id', passport.authenticate('jwt', {
                 });
             } else {
                 Bookmark.findOne({
-		            '_id' : req.params._id;,
+		            '_id' : req.params._id,
 		            'user_id' : decoded._id
 		        }, function(err, bookmark) {
 		            if (err) throw err;
