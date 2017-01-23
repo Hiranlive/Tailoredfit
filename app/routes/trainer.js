@@ -68,14 +68,19 @@ router.put('/api/rate_trainers/:_id', function function_name(req, res) {
 			trainer['total_rates'] = parseInt(trainer['total_rates']) + parseInt(req.body.rating);
 			trainer['no_of_rates'] = parseInt(trainer['no_of_rates']) + 1;
 
-			Trainer.updateTrainer(id, trainer, {}, function(err, trainer) {
-				if(err){
-					throw err;
-				}
-				else{
-					res.json(trainer);
-				}
-			})
+			res.json({
+                success: false,
+                msg: 'S: '+trainer['total_rates']+" -- D: "+trainer['no_of_rates'];
+            });
+
+			// Trainer.updateTrainer(id, trainer, {}, function(err, trainer) {
+			// 	if(err){
+			// 		throw err;
+			// 	}
+			// 	else{
+			// 		res.json(trainer);
+			// 	}
+			// })
 		}
 	})
 });
