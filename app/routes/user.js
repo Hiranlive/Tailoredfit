@@ -602,6 +602,52 @@ router.post('/api/messages', passport.authenticate('jwt', {
     }
 });
 
+router.get('/api/messages/:_id', passport.authenticate('jwt', {
+    session: false
+}), function(req, res) {
+    var token = getToken(req.headers);
+
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+
+        User.findOne({
+            email : decoded.email,
+            type : "Normal",
+            id : decoded.id
+        }, function(err, user) {
+            if (err) throw err;
+
+            if (!user) {
+                return res.status(403).send({
+                    success: false,
+                    msg: 'Authentication failed. Invalid User!'
+                });
+            } else {
+                Message.find({
+                    'sender': decoded._id,
+                    'receiver': req.params._id,
+                }, function(err, messages) {
+                    if (err) throw err;
+
+                    if (!messages) {
+                        return res.status(403).send({
+                            success: false,
+                            msg: 'Empty!'
+                        });
+                    } else {
+                        res.json(messages);
+                    }
+                });
+            }
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+});
+
 getToken = function(headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');
