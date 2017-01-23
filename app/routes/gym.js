@@ -14,6 +14,17 @@ router.get('/api/gyms', function function_name(req, res) {
 	}, 1000)
 });
 
+router.get('/api/filtergyms', function function_name(req, res) {
+	Gym.getGyms(function(err, gyms) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(gyms);
+		}
+	}, 1000)
+});
+
 router.post('/api/gyms', function function_name(req, res) {
 	var gym = req.body;
 
@@ -27,13 +38,26 @@ router.post('/api/gyms', function function_name(req, res) {
 	}, 1000)
 });
 
-router.get('/api/gyms/:_id', function (req, res) {
-	Gym.getGymById(req.params._id, function(err, gym) {
+router.get('/api/gyms/zip_code=/:zip_code/price_gt=/:price_gt/price_lt=/:price_lt/services=/:services', function (req, res) {
+	var filters = {};
+
+	filters['zip_code'] = req.params.zip_code;
+
+	filters['price_gt'] = req.params.price_gt;
+
+	filters['price_lt'] = req.params.price_lt;
+
+	filters['services'] = req.params.services;
+
+	Gym.filterGyms(filters, function(err, gyms) {
 		if(err){
-			throw err;
+			res.json({
+                success: false,
+                msg: 'Error in filtering.'
+            });
 		}
 		else{
-			res.json(gym);
+			res.json(gyms);
 		}
 	})
 });

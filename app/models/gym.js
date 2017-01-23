@@ -50,6 +50,26 @@ module.exports.getGyms = function(callback, limit) {
 	Gym.find(callback).limit(limit);
 }
 
+module.exports.filterGyms = function(filters, filtercallback) {
+	Gym.find(callback).limit(limit);
+
+	var filterOptions = {};
+
+	if(filters['zipcode'] != undefined) {
+		filterOptions['zipcode'] = filters['zipcode'];
+	}
+
+	if(filters['price_gt'] != undefined && filters['price_lt'] != undefined) {
+		filterOptions['price'] = { $gt: filters['price_gt'], $lt: filters['price_lt'] };
+	}
+
+	if(filters['services'] != undefined) {
+		filterOptions['services'] = filters['services'];
+	}
+
+	Gym.find(filterOptions).exec(callback);
+}
+
 // Get Single Gym
 module.exports.getGymById = function(id, callback) {
 	Gym.findById(id, callback)
