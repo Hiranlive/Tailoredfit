@@ -52,6 +52,34 @@ router.put('/api/trainers/:_id', function function_name(req, res) {
 	})
 });
 
+router.put('/api/rate_trainers/:_id', function function_name(req, res) {
+	var id = req.params._id;
+
+	Trainer.getTrainerById(id, function(err, trainer) {
+		if(err){
+			throw err;
+		}
+		else{
+			res.json(trainer);
+
+
+			var trainer = {};
+
+			trainer['total_rates'] = parseInt(trainer['total_rates']) + parseInt(req.body.rating);
+			trainer['no_of_rates'] = parseInt(trainer['no_of_rates'])++;
+
+			Trainer.updateTrainer(id, trainer, {}, function(err, trainer) {
+				if(err){
+					throw err;
+				}
+				else{
+					res.json(trainer);
+				}
+			})
+		}
+	})
+});
+
 router.delete('/api/trainers/:_id', function (req, res) {
 	var id = req.params._id;
 	var trainer = req.body;
