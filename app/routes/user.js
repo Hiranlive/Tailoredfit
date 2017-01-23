@@ -524,7 +524,7 @@ router.get('/api/messages', passport.authenticate('jwt', {
                     msg: 'Authentication failed. Invalid User!'
                 });
             } else {
-                Message.find($or:[{
+                Message.find([{
                     'sender': decoded._id,
                 }, {
                     'receiver': decoded._id,
