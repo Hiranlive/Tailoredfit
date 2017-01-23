@@ -70,7 +70,7 @@ router.put('/api/rate_trainers/:_id', function function_name(req, res) {
 
 			res.json({
                 success: false,
-                msg: 'S: '+trainer['total_rates']+" -- D: "+trainer['no_of_rates'];
+                msg: 'S: '+trainer['total_rates']+' -- D: '+trainer['no_of_rates']
             });
 
 			// Trainer.updateTrainer(id, trainer, {}, function(err, trainer) {
