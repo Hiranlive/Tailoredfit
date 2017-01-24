@@ -25,9 +25,6 @@ var nutritionistSchema = mongoose.Schema({
 	zip_code : {
 		type : String
 	},
-	services : {
-		type : String
-	},
 	no_of_rates : {
 		type : Number,
 		default : 0,
@@ -76,8 +73,7 @@ module.exports.updateNutritionist = function(id, nutritionist, options, callback
 		phone : nutritionist.phone,
 		address : nutritionist.address,
 		availability : nutritionist.availability,
-		zip_code : trainer.zip_code,
-		services : trainer.services,
+		zip_code : nutritionist.zip_code,
 		latitude : nutritionist.latitude,
 		longitude : nutritionist.longitude,
 		profile_image : nutritionist.profile_image
