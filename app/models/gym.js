@@ -53,22 +53,21 @@ module.exports.getGyms = function(callback, limit) {
 	Gym.find(callback).limit(limit);
 }
 
-module.exports.filterGyms = function(filters, filtercallback) {
-	Gym.find(callback).limit(limit);
-
+// Filter Gyms
+module.exports.filterGyms = function(filters, callback) {
 	var filterOptions = {};
 
-	if(filters['zipcode'] != undefined) {
-		filterOptions['zipcode'] = filters['zipcode'];
+	if(filters['zip_code'] != undefined) {
+		filterOptions['zip_code'] = filters['zip_code'];
 	}
 
-	if(filters['price_gt'] != undefined && filters['price_lt'] != undefined) {
-		filterOptions['price'] = { $gt: filters['price_gt'], $lt: filters['price_lt'] };
+	if(filters['price_gt'] != undefined) {
+		filterOptions['price'] = { $gt: filters['price_gt'] };
 	}
 
-	if(filters['services'] != undefined) {
-		filterOptions['services'] = filters['services'];
-	}
+	// if(filters['price_lt'] != undefined) {
+	// 	filterOptions['price'] = { $lt: filters['price_lt'] };
+	// }
 
 	Gym.find(filterOptions).exec(callback);
 }

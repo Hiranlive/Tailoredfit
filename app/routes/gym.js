@@ -27,6 +27,22 @@ router.post('/api/gyms', function function_name(req, res) {
 	}, 1000)
 });
 
+router.post('/api/filter_gyms', function function_name(req, res) {
+	var filters = req.body;
+
+	Gym.filterGyms(filters, function(err, gyms) {
+		if(err){
+			res.json({
+                success: false,
+                msg: 'Error in filtering.'
+            });
+		}
+		else{
+			res.json(gyms);
+		}
+	})
+});
+
 // router.get('/api/gyms/zip_code=/:zip_code/price_gt=/:price_gt/price_lt=/:price_lt/services=/:services', function (req, res) {
 // 	var filters = {};
 
