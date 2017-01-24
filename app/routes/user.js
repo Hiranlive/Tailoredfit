@@ -564,27 +564,35 @@ router.post('/api/messages', passport.authenticate('jwt', {
                     msg: 'Authentication failed. Invalid User!'
                 });
             } else {
-                var newMessage = new Message({
-                    sender: decoded._id,
-                    receiver: req.body.receiver,
-                    timestamp: new Date().getTime(),
-                    message_body: req.body.message_body
-                });
+            	if(req.body.message_body != "") {
+            		var newMessage = new Message({
+	                    sender: decoded._id,
+	                    receiver: req.body.receiver,
+	                    timestamp: new Date().getTime(),
+	                    message_body: req.body.message_body
+	                });
 
-                newMessage.save(function(err) {
-                    if (err) {
-                        res.json({
-                            success: false,
-                            msg: 'Message sending failed!'
-                        });
-                    }
-                    else{
-                        res.json({
-                            success: true,
-                            msg: 'Message is sent!'
-                        });
-                    }
-                });
+	                newMessage.save(function(err) {
+	                    if (err) {
+	                        res.json({
+	                            success: false,
+	                            msg: 'Message sending failed!'
+	                        });
+	                    }
+	                    else{
+	                        res.json({
+	                            success: true,
+	                            msg: 'Message is sent!'
+	                        });
+	                    }
+	                });
+            	}
+            	else {
+            		res.json({
+                        success: false,
+                        msg: 'Message is empty!'
+                    });
+            	}
             }
         });
     } else {
