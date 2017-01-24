@@ -131,5 +131,9 @@ module.exports.filterTrainers = function(filters, callback) {
 		filterOptions['services'] = filters['services'];
 	}
 
+	if(filters['price_gt'] != undefined && filters['price_gt'] != '' && filters['price_lt'] != undefined && filters['price_lt'] != '') {
+		filterOptions['price'] = { $gte: filters['price_gt'], $lte: filters['price_lt'] };
+	}
+	
 	Trainer.find(filterOptions).exec(callback);
 }
