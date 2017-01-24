@@ -53,21 +53,6 @@ module.exports.getGyms = function(callback, limit) {
 	Gym.find(callback).limit(limit);
 }
 
-// Filter Gyms
-module.exports.filterGyms = function(filters, callback) {
-	var filterOptions = {};
-
-	if(filters['zip_code'] != undefined && filters['zip_code'] != '') {
-		filterOptions['zip_code'] = filters['zip_code'];
-	}
-
-	if(filters['price_gt'] != undefined && filters['price_gt'] != '' && filters['price_lt'] != undefined && filters['price_lt'] != '') {
-		filterOptions['price'] = { $gte: filters['price_gt'], $lte: filters['price_lt'] };
-	}
-
-	Gym.find(filterOptions).exec(callback);
-}
-
 // Get Single Gym
 module.exports.getGymById = function(id, callback) {
 	Gym.findById(id, callback)
@@ -110,4 +95,19 @@ module.exports.removeGym = function(id, callback) {
 	var query = {_id : id};
 
 	Gym.remove(query, callback);
+}
+
+// Filter Gyms
+module.exports.filterGyms = function(filters, callback) {
+	var filterOptions = {};
+
+	if(filters['zip_code'] != undefined && filters['zip_code'] != '') {
+		filterOptions['zip_code'] = filters['zip_code'];
+	}
+
+	if(filters['price_gt'] != undefined && filters['price_gt'] != '' && filters['price_lt'] != undefined && filters['price_lt'] != '') {
+		filterOptions['price'] = { $gte: filters['price_gt'], $lte: filters['price_lt'] };
+	}
+
+	Gym.find(filterOptions).exec(callback);
 }
