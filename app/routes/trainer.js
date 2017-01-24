@@ -27,6 +27,22 @@ router.post('/api/trainers', function function_name(req, res) {
 	}, 1000)
 });
 
+router.post('/api/filter_trainers', function function_name(req, res) {
+	var filters = req.body;
+
+	Trainer.filterTrainers(filters, function(err, trainers) {
+		if(err){
+			res.json({
+                success: false,
+                msg: 'Error in filtering.'
+            });
+		}
+		else{
+			res.json(trainers);
+		}
+	})
+});
+
 router.get('/api/trainers/:_id', function (req, res) {
 	Trainer.getTrainerById(req.params._id, function(err, trainer) {
 		if(err){

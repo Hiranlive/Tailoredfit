@@ -27,6 +27,22 @@ router.post('/api/nutritionists', function function_name(req, res) {
 	}, 1000)
 });
 
+router.post('/api/filter_nutritionists', function function_name(req, res) {
+	var filters = req.body;
+
+	Nutritionist.filterNutritionists(filters, function(err, nutritionists) {
+		if(err){
+			res.json({
+                success: false,
+                msg: 'Error in filtering.'
+            });
+		}
+		else{
+			res.json(nutritionists);
+		}
+	})
+});
+
 router.get('/api/nutritionists/:_id', function (req, res) {
 	Nutritionist.getNutritionistById(req.params._id, function(err, nutritionist) {
 		if(err){

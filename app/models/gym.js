@@ -61,14 +61,10 @@ module.exports.filterGyms = function(filters, callback) {
 		filterOptions['zip_code'] = filters['zip_code'];
 	}
 
-	if(filters['price_gt'] != undefined && filters['price_gt'] != '') {
-		filterOptions['price'] = { $gt: filters['price_gt'] };
+	if(filters['price_gt'] != undefined && filters['price_gt'] != '' && filters['price_lt'] != undefined && filters['price_lt'] != '') {
+		filterOptions['price'] = { $gte: filters['price_gt'], $lte: filters['price_lt'] };
 	}
 
-	if(filters['price_lt'] != undefined && filters['price_lt'] != '') {
-		filterOptions['price'] = { $lt: filters['price_lt'] };
-	}
-	
 	Gym.find(filterOptions).exec(callback);
 }
 

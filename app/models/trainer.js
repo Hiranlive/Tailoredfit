@@ -119,3 +119,17 @@ module.exports.removeTrainer = function(id, callback) {
 
 	Trainer.remove(query, callback);
 }
+
+module.exports.filterTrainers = function(filters, callback) {
+	var filterOptions = {};
+
+	if(filters['zip_code'] != undefined && filters['zip_code'] != '') {
+		filterOptions['zip_code'] = filters['zip_code'];
+	}
+
+	if(filters['services'] != undefined && filters['services'] != '') {
+		filterOptions['services'] = filters['services'];
+	}
+
+	Trainer.find(filterOptions).exec(callback);
+}

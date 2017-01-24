@@ -99,3 +99,14 @@ module.exports.removeNutritionist = function(id, callback) {
 
 	Nutritionist.remove(query, callback);
 }
+
+// Filter Gyms
+module.exports.filterNutritionists = function(filters, callback) {
+	var filterOptions = {};
+
+	if(filters['zip_code'] != undefined && filters['zip_code'] != '') {
+		filterOptions['zip_code'] = filters['zip_code'];
+	}
+	
+	Nutritionist.find(filterOptions).exec(callback);
+}
