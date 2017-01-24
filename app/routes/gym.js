@@ -27,26 +27,37 @@ router.post('/api/gyms', function function_name(req, res) {
 	}, 1000)
 });
 
-router.get('/api/gyms/zip_code=/:zip_code/price_gt=/:price_gt/price_lt=/:price_lt/services=/:services', function (req, res) {
-	var filters = {};
+// router.get('/api/gyms/zip_code=/:zip_code/price_gt=/:price_gt/price_lt=/:price_lt/services=/:services', function (req, res) {
+// 	var filters = {};
 
-	filters['zip_code'] = req.params.zip_code;
+// 	filters['zip_code'] = req.params.zip_code;
 
-	filters['price_gt'] = req.params.price_gt;
+// 	filters['price_gt'] = req.params.price_gt;
 
-	filters['price_lt'] = req.params.price_lt;
+// 	filters['price_lt'] = req.params.price_lt;
 
-	filters['services'] = req.params.services;
+// 	filters['services'] = req.params.services;
 
-	Gym.filterGyms(filters, function(err, gyms) {
+// 	Gym.filterGyms(filters, function(err, gyms) {
+// 		if(err){
+// 			res.json({
+//                 success: false,
+//                 msg: 'Error in filtering.'
+//             });
+// 		}
+// 		else{
+// 			res.json(gyms);
+// 		}
+// 	})
+// });
+
+router.get('/api/gyms/:_id', function (req, res) {
+	Gym.getGymById(req.params._id, function(err, gym) {
 		if(err){
-			res.json({
-                success: false,
-                msg: 'Error in filtering.'
-            });
+			throw err;
 		}
 		else{
-			res.json(gyms);
+			res.json(gym);
 		}
 	})
 });

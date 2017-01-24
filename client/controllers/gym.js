@@ -28,6 +28,8 @@ application.controller('GymCtrl', function($scope, $http, $location, $routeParam
             if(result.data.success){
                 var id = $routeParams.id;
                 $http.get('/api/gyms/'+id).then(function(response){
+                    $scope.condition = true;
+                    
                     $scope.gym = response['data'];
                 });
             }
