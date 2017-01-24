@@ -27,7 +27,7 @@ var gymSchema = mongoose.Schema({
 		type : String
 	},
 	price : {
-		type : String
+		type : Number
 	},
 	zip_code : {
 		type : String
