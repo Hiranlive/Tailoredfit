@@ -120,6 +120,7 @@ module.exports.removeTrainer = function(id, callback) {
 	Trainer.remove(query, callback);
 }
 
+// Filter Trainers
 module.exports.filterTrainers = function(filters, callback) {
 	var filterOptions = {};
 

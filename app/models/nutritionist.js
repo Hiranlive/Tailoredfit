@@ -100,7 +100,7 @@ module.exports.removeNutritionist = function(id, callback) {
 	Nutritionist.remove(query, callback);
 }
 
-// Filter Gyms
+// Filter Nutritionists
 module.exports.filterNutritionists = function(filters, callback) {
 	var filterOptions = {};
 
