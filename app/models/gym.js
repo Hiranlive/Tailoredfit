@@ -29,6 +29,12 @@ var gymSchema = mongoose.Schema({
 	price : {
 		type : String
 	},
+	zip_code : {
+		type : String
+	},
+	services : {
+		type : String
+	},
 	week_day_hours : {
 		type : String
 	},
@@ -97,6 +103,8 @@ module.exports.updateGym = function(id, gym_item, options, callback) {
 		longitude : gym_item.longitude,
 		phone : gym_item.phone,
 		price : gym_item.price,
+		zip_code : trainer.zip_code,
+		services : trainer.services,
 		week_day_hours : gym_item.week_day_hours,
 		saturday_hours : gym_item.saturday_hours,
 		website : gym_item.website,

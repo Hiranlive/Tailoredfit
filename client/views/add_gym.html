@@ -160,6 +160,16 @@
                         <br/><br/><br/>
 
                         <div class="col-sm-2">
+                            <h4>Zip Code</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="text" required class="form-control" placeholder="Zip Code" ng-model="gym.zip_code">
+                        </div>
+
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
                             <h4>Latitude</h4>
                         </div>
 
@@ -177,6 +187,21 @@
                             <input type="text" required class="form-control" placeholder="Longitude" ng-model="gym.longitude">
                         </div>
 
+                        <br/><br/><br/>
+
+                        <div class="col-sm-2">
+                            <h4>Services</h4>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <select class="form-control selectpicker" multiple ng-model="gym.services">
+                                <option disabled selected value>-- Select Type --</option>
+                                <option value="Service 1">Service 1</option>
+                                <option value="Service 2">Service 2</option>
+                                <option value="Service 3">Service 3</option>
+                            </select>
+                        </div>
+                        
                         <br/><br/><br/>
 
                         <div class="col-sm-2">

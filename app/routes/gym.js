@@ -14,17 +14,6 @@ router.get('/api/gyms', function function_name(req, res) {
 	}, 1000)
 });
 
-router.get('/api/filtergyms', function function_name(req, res) {
-	Gym.getGyms(function(err, gyms) {
-		if(err){
-			throw err;
-		}
-		else{
-			res.json(gyms);
-		}
-	}, 1000)
-});
-
 router.post('/api/gyms', function function_name(req, res) {
 	var gym = req.body;
 

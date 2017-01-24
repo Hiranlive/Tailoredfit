@@ -24,6 +24,12 @@ var trainerSchema = mongoose.Schema({
 		type : String,
 		require : true
 	},
+	zip_code : {
+		type : String
+	},
+	services : {
+		type : String
+	},
 	address : {
 		type : String,
 		require : true
@@ -86,6 +92,8 @@ module.exports.updateTrainer = function(id, trainer, options, callback) {
 		insured : trainer.insured,
 		services : trainer.services,
 		availability : trainer.availability,
+		zip_code : trainer.zip_code,
+		services : trainer.services,
 		address : trainer.address,
 		certification : trainer.certification,
 		facility_house_calls : trainer.facility_house_calls,
