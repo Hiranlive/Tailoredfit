@@ -57,18 +57,18 @@ module.exports.getGyms = function(callback, limit) {
 module.exports.filterGyms = function(filters, callback) {
 	var filterOptions = {};
 
-	if(filters['zip_code'] != undefined) {
+	if(filters['zip_code'] != undefined && filters['zip_code'] != '') {
 		filterOptions['zip_code'] = filters['zip_code'];
 	}
 
-	if(filters['price_gt'] != undefined) {
+	if(filters['price_gt'] != undefined && filters['price_gt'] != '') {
 		filterOptions['price'] = { $gt: filters['price_gt'] };
 	}
 
-	// if(filters['price_lt'] != undefined) {
-	// 	filterOptions['price'] = { $lt: filters['price_lt'] };
-	// }
-
+	if(filters['price_lt'] != undefined && filters['price_lt'] != '') {
+		filterOptions['price'] = { $lt: filters['price_lt'] };
+	}
+	
 	Gym.find(filterOptions).exec(callback);
 }
 
