@@ -590,7 +590,7 @@ router.post('/api/messages', passport.authenticate('jwt', {
             	else {
             		res.json({
                         success: false,
-                        msg: 'Required message body & receiver!'
+                        msg: 'Invalid message format!'
                     });
             	}
             }
