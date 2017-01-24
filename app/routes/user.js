@@ -564,7 +564,7 @@ router.post('/api/messages', passport.authenticate('jwt', {
                     msg: 'Authentication failed. Invalid User!'
                 });
             } else {
-            	if(req.body.message_body != "") {
+            	if(req.body.message_body != "" && req.body.message_body != undefined && req.body.receiver != "" && req.body.receiver != undefined) {
             		var newMessage = new Message({
 	                    sender: decoded._id,
 	                    receiver: req.body.receiver,
