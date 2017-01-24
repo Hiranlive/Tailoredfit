@@ -20,3 +20,9 @@ var messageSchema = mongoose.Schema({
 });
 
 var Message = module.exports = mongoose.model('Message', messageSchema);
+
+module.exports.getMessages = function(user_id, callback) {
+	var filterOptions = {$or:[{'sender' : user_id}, {'receiver' : user_id}]};
+
+	Message.find(filterOptions).exec(callback);
+}

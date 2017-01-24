@@ -522,22 +522,17 @@ router.get('/api/messages', passport.authenticate('jwt', {
                     msg: 'Authentication failed. Invalid User!'
                 });
             } else {
-                Message.find([{
-                    'sender': decoded._id,
-                }, {
-                    'receiver': decoded._id,
-                }], function(err, messages) {
-                    if (err) throw err;
-
-                    if (!messages) {
-                        return res.status(403).send({
-                            success: false,
-                            msg: 'Empty!'
-                        });
-                    } else {
-                        res.json(messages);
-                    }
-                });
+            	Message.getMessages(decoded._id, function(err, gyms) {
+					if(err){
+						res.json({
+			                success: false,
+			                msg: 'Error in filtering.'
+			            });
+					}
+					else{
+						res.json(gyms);
+					}
+				})
             }
         });
     } else {
@@ -600,7 +595,7 @@ router.post('/api/messages', passport.authenticate('jwt', {
     }
 });
 
-router.get('/api/messages/:_id', passport.authenticate('jwt', {
+router.get('/api/messages/:_receiver_id', passport.authenticate('jwt', {
     session: false
 }), function(req, res) {
     var token = getToken(req.headers);
@@ -623,7 +618,7 @@ router.get('/api/messages/:_id', passport.authenticate('jwt', {
             } else {
                 Message.find({
                     'sender': decoded._id,
-                    'receiver': req.params._id,
+                    'receiver': req.params._receiver_id,
                 }, function(err, messages) {
                     if (err) throw err;
 
