@@ -202,23 +202,39 @@ router.post('/api/authenticate', function(req, res) {
         email : req.body.email,
         type : "Normal"
     }, function(err, user) {
-        if (err) throw err;
-
-        if (!user) {
+        if (err) {
             return res.status(403).send({
                 success: false,
                 msg: 'Authentication failed!'
             });
         } else {
-            // check if password matches
+            // Check if password matches
             user.comparePassword(req.body.password, function(err, isMatch) {
                 if (isMatch && !err) {
                     // if user is found and password is right create a token
                     var token = jwt.encode(user, config.secret);
-                    // return the information including token as JSON
-                    res.json({
-                        success: true,
-                        token: 'JWT ' + token
+                    
+                    var decoded = jwt.decode(token, config.secret);
+
+                    User.findOne({
+                        email : decoded.email,
+                        type : "Normal",
+                        id : decoded.id
+                    }, function(err, user) {
+                        if (err) throw err;
+
+                        if (!user) {
+                            return res.status(403).send({
+                                success: false,
+                                msg: 'Authentication failed. User not found.'
+                            });
+                        } else {
+                            res.json({
+                                success: true,
+                                token: 'JWT ' + token,
+                                user: user
+                            });
+                        }
                     });
                 } else {
                     return res.status(403).send({
