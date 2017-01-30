@@ -117,3 +117,30 @@ module.exports.updateUser = function(id, user, options, callback) {
     
     User.findOneAndUpdate(query, updatedUser, options, callback);
 }
+
+module.exports.logoutUser = function(id, options, callback) {
+
+    var query = {_id : id};
+    
+    var updatedUser = {};
+
+
+    if(user.name != undefined) {
+        updatedUser['name'] = user.name;
+    }
+
+    if(user.phone != undefined) {
+        updatedUser['phone'] = user.phone;
+    }
+
+    if(user.password != undefined) {
+
+        var salt = bcrypt.genSaltSync(10);
+
+        var hash = bcrypt.hashSync(user.password, salt);
+
+        updatedUser['password'] = hash;
+    }
+    
+    User.findOneAndUpdate(query, updatedUser, options, callback);
+}
