@@ -64,7 +64,7 @@ application.controller('TrainerCtrl', function($scope, $http, $location, $routeP
             if(result.data.success){
                 var id = $routeParams.id;
 
-                $http.put('/api/trainers/'+id, $scope.trainer).then(function(response){
+                $http.put('/api/trainers/'+id, angular.toJson($scope.trainer)).then(function(response){
                     alert("Trainer is successfully updated!");
                     location.reload();
                 });
