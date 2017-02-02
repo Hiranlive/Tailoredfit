@@ -582,8 +582,8 @@ router.post('/api/messages', passport.authenticate('jwt', {
             } else {
             	if(req.body.message_body != "" && req.body.message_body != undefined && req.body.receiver != "" && req.body.receiver != undefined) {
             		var newMessage = new Message({
-	                    sender: req.body.receiver,
-	                    receiver: decoded._id,
+	                    sender: decoded._id,
+	                    receiver: req.body.receiver,
 	                    timestamp: new Date().getTime(),
 	                    message_body: req.body.message_body
 	                });
