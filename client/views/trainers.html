@@ -170,9 +170,7 @@
                                         <td>{{trainer.insured}}</td>
                                         <td>
                                         	<p ng-repeat="(key, value) in trainer.services[0]">
-                                        		<li ng-if="value == true">
-                                                    {{key}}
-                                                </li>
+                                        		{{value == true ? key : ''}}
                                         	</p>
                                         </td>
                                         <td>{{trainer.availability}}</td>
