@@ -17,7 +17,7 @@ var trainerSchema = mongoose.Schema({
 	insured : {
 		type : String
 	},
-	services : {},
+	services : [],
 	availability : {
 		type : String,
 		require : true
