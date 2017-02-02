@@ -538,7 +538,7 @@ router.get('/api/messages', passport.authenticate('jwt', {
                     msg: 'Authentication failed. Invalid User!'
                 });
             } else {
-            	Message.getMessages(decoded._id, function(err, gyms) {
+            	Message.getMessages(decoded._id, function(err, conversations) {
 					if(err){
 						res.json({
 			                success: false,
@@ -546,7 +546,7 @@ router.get('/api/messages', passport.authenticate('jwt', {
 			            });
 					}
 					else{
-						res.json(gyms);
+						res.json(conversations);
 					}
 				})
             }
@@ -640,21 +640,33 @@ router.get('/api/messages/:_receiver_id', passport.authenticate('jwt', {
                     msg: 'Authentication failed. Invalid User!'
                 });
             } else {
-                Message.find({
-                    'sender': decoded._id,
-                    'receiver': req.params._receiver_id,
-                }, function(err, messages) {
-                    if (err) throw err;
+                // Message.find({
+                //     'sender': decoded._id,
+                //     'receiver': req.params._receiver_id,
+                // }, function(err, messages) {
+                //     if (err) throw err;
 
-                    if (!messages) {
-                        return res.status(403).send({
+                //     if (!messages) {
+                //         return res.status(403).send({
+                //             success: false,
+                //             msg: 'Empty!'
+                //         });
+                //     } else {
+                //         res.json(messages);
+                //     }
+                // });
+                
+                Message.getMessagesOfReceiver(decoded._id, req.params._receiver_id, function(err, conversations) {
+                    if(err){
+                        res.json({
                             success: false,
-                            msg: 'Empty!'
+                            msg: 'Error in filtering.'
                         });
-                    } else {
-                        res.json(messages);
                     }
-                });
+                    else{
+                        res.json(conversations);
+                    }
+                })
             }
         });
     } else {
