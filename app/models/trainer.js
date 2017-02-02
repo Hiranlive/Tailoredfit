@@ -82,22 +82,40 @@ module.exports.addTrainer = function(trainer, callback) {
 module.exports.updateTrainer = function(id, trainer, options, callback) {
 	var query = {_id : id};
 	
-	var update = {
-		name : trainer.name,
-		gender : trainer.gender,
-		phone : trainer.phone,
-		insured : trainer.insured,
-		services : trainer.services,
-		availability : trainer.availability,
-		address : trainer.address,
-		zip_code : trainer.zip_code,
-		certification : trainer.certification,
-		facility_house_calls : trainer.facility_house_calls,
-		price : trainer.price,
-		latitude : trainer.latitude,
-		longitude : trainer.longitude,
-		profile_image : trainer.profile_image
-	};
+	var update = {};
+
+	if(trainer.name != "") {
+		update['name'] = trainer.name;
+	}
+
+	if(trainer.gender != "") {
+		update['gender'] = trainer.gender;
+	}
+
+	if(trainer.phone != "") {
+		update['phone'] = trainer.phone;
+	}
+
+	if(trainer.insured != "") {
+		update['insured'] = trainer.insured;
+	}
+
+	// var update = {
+	// 	name : ,
+	// 	gender : trainer.gender,
+	// 	phone : trainer.phone,
+	// 	insured : trainer.insured,
+	// 	services : trainer.services,
+	// 	availability : trainer.availability,
+	// 	address : trainer.address,
+	// 	zip_code : trainer.zip_code,
+	// 	certification : trainer.certification,
+	// 	facility_house_calls : trainer.facility_house_calls,
+	// 	price : trainer.price,
+	// 	latitude : trainer.latitude,
+	// 	longitude : trainer.longitude,
+	// 	profile_image : trainer.profile_image
+	// };
 
 	Trainer.findOneAndUpdate(query, update, options, callback);
 }
