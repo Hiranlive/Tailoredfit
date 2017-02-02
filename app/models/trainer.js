@@ -102,23 +102,42 @@ module.exports.updateTrainer = function(id, trainer, options, callback) {
 		update['services'] = trainer.services;
 	}
 
-	// var update = {
-	// 	name : ,
-	// 	gender : trainer.gender,
-	// 	phone : trainer.phone,
-	// 	insured : trainer.insured,
-	// 	services : trainer.services,
-	// 	availability : trainer.availability,
-	// 	address : trainer.address,
-	// 	zip_code : trainer.zip_code,
-	// 	certification : trainer.certification,
-	// 	facility_house_calls : trainer.facility_house_calls,
-	// 	price : trainer.price,
-	// 	latitude : trainer.latitude,
-	// 	longitude : trainer.longitude,
-	// 	profile_image : trainer.profile_image
-	// };
+	if(trainer.availability != undefined) {
+		update['availability'] = trainer.availability;
+	}
 
+	if(trainer.address != undefined) {
+		update['address'] = trainer.address;
+	}
+
+	if(trainer.zip_code != undefined) {
+		update['zip_code'] = trainer.zip_code;
+	}
+
+	if(trainer.certification != undefined) {
+		update['certification'] = trainer.certification;
+	}
+
+	if(trainer.facility_house_calls != undefined) {
+		update['facility_house_calls'] = trainer.facility_house_calls;
+	}
+
+	if(trainer.price != undefined) {
+		update['price'] = trainer.price;
+	}
+
+	if(trainer.latitude != undefined) {
+		update['latitude'] = trainer.latitude;
+	}
+
+	if(trainer.longitude != undefined) {
+		update['longitude'] = trainer.longitude;
+	}
+
+	if(trainer.profile_image != undefined) {
+		update['profile_image'] = trainer.profile_image;
+	}
+	
 	Trainer.findOneAndUpdate(query, update, options, callback);
 }
 
