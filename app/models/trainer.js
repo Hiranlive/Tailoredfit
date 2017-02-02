@@ -100,6 +100,10 @@ module.exports.updateTrainer = function(id, trainer, options, callback) {
 		update['insured'] = trainer.insured;
 	}
 
+	if(trainer.services != undefined) {
+		update['services'] = trainer.services;
+	}
+
 	// var update = {
 	// 	name : ,
 	// 	gender : trainer.gender,
