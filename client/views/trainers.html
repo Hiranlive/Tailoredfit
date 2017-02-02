@@ -168,7 +168,11 @@
                                         <td>{{trainer.gender}}</td>
                                         <td>{{trainer.phone}}</td>
                                         <td>{{trainer.insured}}</td>
-                                        <td>{{trainer.services}}</td>
+                                        <td>
+                                        	<p ng-repeat="(key, value) in trainer.services[0]">
+                                        		{{key}}
+                                        	</p>
+                                        </td>
                                         <td>{{trainer.availability}}</td>
                                         <td>{{trainer.address}}</td>
                                         <td>{{trainer.certification}}</td>

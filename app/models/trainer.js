@@ -18,7 +18,7 @@ var trainerSchema = mongoose.Schema({
 		type : String
 	},
 	services : {
-		type : String
+		type : []
 	},
 	availability : {
 		type : String,
