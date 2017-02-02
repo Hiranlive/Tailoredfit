@@ -84,19 +84,19 @@ module.exports.updateTrainer = function(id, trainer, options, callback) {
 	
 	var update = {};
 
-	if(trainer.name != "") {
+	if(trainer.name != undefined) {
 		update['name'] = trainer.name;
 	}
 
-	if(trainer.gender != "") {
+	if(trainer.gender != undefined) {
 		update['gender'] = trainer.gender;
 	}
 
-	if(trainer.phone != "") {
+	if(trainer.phone != undefined) {
 		update['phone'] = trainer.phone;
 	}
 
-	if(trainer.insured != "") {
+	if(trainer.insured != undefined) {
 		update['insured'] = trainer.insured;
 	}
 
