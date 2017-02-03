@@ -109,5 +109,9 @@ module.exports.filterGyms = function(filters, callback) {
 		filterOptions['price'] = { $gte: filters['price_gt'], $lte: filters['price_lt'] };
 	}
 
+	if(filters['type'] != undefined && filters['type'] != '') {
+		filterOptions['type'] = filters['type'];
+	}
+
 	Gym.find(filterOptions).exec(callback);
 }
