@@ -584,6 +584,7 @@ router.post('/api/messages', passport.authenticate('jwt', {
             		var newMessage = new Message({
 	                    sender: decoded._id,
 	                    receiver: req.body.receiver,
+                        receiver_name: req.body.receiver_name,
 	                    timestamp: new Date().getTime(),
 	                    message_body: req.body.message_body
 	                });
@@ -639,23 +640,7 @@ router.get('/api/messages/:_receiver_id', passport.authenticate('jwt', {
                     success: false,
                     msg: 'Authentication failed. Invalid User!'
                 });
-            } else {
-                // Message.find({
-                //     'sender': decoded._id,
-                //     'receiver': req.params._receiver_id,
-                // }, function(err, messages) {
-                //     if (err) throw err;
-
-                //     if (!messages) {
-                //         return res.status(403).send({
-                //             success: false,
-                //             msg: 'Empty!'
-                //         });
-                //     } else {
-                //         res.json(messages);
-                //     }
-                // });
-                
+            } else {                
                 Message.getMessagesOfReceiver(decoded._id, req.params._receiver_id, function(err, conversations) {
                     if(err){
                         res.json({
