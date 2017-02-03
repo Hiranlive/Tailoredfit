@@ -11,6 +11,9 @@ var messageSchema = mongoose.Schema({
 		type : String,
 		require : true
 	},
+	receiver_name : {
+		type : String
+	},
 	message_body : {
 		type : String
 	},
