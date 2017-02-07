@@ -35,11 +35,13 @@ var userRoutes = require('./app/routes/user');
 var gymRoutes = require('./app/routes/gym');
 var trainerRoutes = require('./app/routes/trainer');
 var nutritionistRoutes = require('./app/routes/nutritionist');
+var imageRoutes = require('./app/routes/images');
 
 app.use('/', userRoutes);
 app.use('/', gymRoutes);
 app.use('/', trainerRoutes);
 app.use('/', nutritionistRoutes);
+app.use('/', imageRoutes);
 
 // Start the server
 app.listen(port);
