@@ -96,17 +96,16 @@ module.exports.updateUser = function(id, user, options, callback) {
     var query = {_id : id};
     
     var updatedUser = {};
-
-
-    if(user.name != undefined) {
+    
+    if(user.name != undefined && user.name != "") {
         updatedUser['name'] = user.name;
     }
 
-    if(user.phone != undefined) {
+    if(user.phone != undefined && user.phone != "") {
         updatedUser['phone'] = user.phone;
     }
 
-    if(user.password != undefined) {
+    if(user.password != undefined && user.password != "") {
 
         var salt = bcrypt.genSaltSync(10);
 
