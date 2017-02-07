@@ -1,4 +1,5 @@
 var express = require('express');
+var connect = require('connect');
 var app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -30,6 +31,13 @@ app.get('/', function(req, res) {
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 
+app.use(connect.cookieParser());
+app.use(connect.logger('dev'));
+app.use(connect.bodyParser());
+
+app.use(connect.json());  
+app.use(connect.urlencoded());
+
 // Load API routes
 var userRoutes = require('./app/routes/user');
 var gymRoutes = require('./app/routes/gym');
@@ -42,6 +50,8 @@ app.use('/', gymRoutes);
 app.use('/', trainerRoutes);
 app.use('/', nutritionistRoutes);
 app.use('/', imageRoutes);
+
+// require('./routes/routes.js')(app);
 
 // Start the server
 app.listen(port);
