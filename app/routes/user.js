@@ -391,6 +391,26 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
     }
 });
 
+router.post('/api/images/upload', function function_name(req, res) {
+    fs.readFile(req.files.image.path, function (err, data){
+        var date = new Date();
+
+        var newPath = "./uploads/" + date.getTime() + ".png";
+
+        fs.writeFile(newPath, data, function (err) {
+            if(err){
+                res.json({'response':"Error"+err});
+            }else {
+                res.json({'response':"Saved"});
+                res.json({
+                    success: true,
+                    msg: 'User profile updated successfully.'
+                });
+            }
+        });
+    });
+});
+
 router.get('/api/images/:file', function function_name(req, res) {
     file = req.params.file;
     var img = fs.readFileSync("./uploads/" + file);
