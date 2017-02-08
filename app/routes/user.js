@@ -364,7 +364,7 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
 router.post('/api/images/upload', function function_name(req, res) {
     if(req.files.image != undefined) {
         fs.readFile(req.files.image.path, function (err, data){
-            var newPath = "./uploads/" + req.body.name + ".png";
+            var newPath = "./uploads/" + req.body.image_name + ".png";
 
             fs.writeFile(newPath, data, function (err) {
                 if(err){
