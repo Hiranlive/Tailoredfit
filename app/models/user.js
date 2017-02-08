@@ -94,8 +94,7 @@ module.exports.removeUser = function(id, callback) {
     User.remove(query, callback);
 }
 
-module.exports.updateUser = function(id, user, image, options, callback) {
-
+module.exports.updateUser = function(id, user, options, callback) {
     var query = {_id : id};
     
     var updatedUser = {};
@@ -108,12 +107,11 @@ module.exports.updateUser = function(id, user, image, options, callback) {
         updatedUser['phone'] = user.phone;
     }
 
-    if(image != undefined && image != "") {
-        updatedUser['profile_image'] = image;
+    if(user.profile_image != undefined && user.profile_image != "") {
+        updatedUser['profile_image'] = user.profile_image;
     }
 
     if(user.password != undefined && user.password != "") {
-
         var salt = bcrypt.genSaltSync(10);
 
         var hash = bcrypt.hashSync(user.password, salt);

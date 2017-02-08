@@ -337,7 +337,7 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
-                User.updateUser(decoded._id, updateUser, "", {}, function(err, user_res) {
+                User.updateUser(decoded._id, updateUser, {}, function(err, user_res) {
                     if(err){
                         res.json({
                             success: false,
