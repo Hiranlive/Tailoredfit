@@ -391,6 +391,13 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
     }
 });
 
+router.get('/api/images/:file', function function_name(req, res) {
+    file = req.params.file;
+    var img = fs.readFileSync("./uploads/" + file);
+    res.writeHead(200, {'Content-Type': 'image/jpg' });
+    res.end(img, 'binary');
+});
+
 router.get('/api/bookmarks', passport.authenticate('jwt', {
     session: false
 }), function(req, res) {
