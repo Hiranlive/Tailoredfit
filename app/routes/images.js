@@ -6,7 +6,10 @@ router.post('/api/upload', function function_name(req, res) {
 	console.log(req.files.image.originalFilename);
 	console.log(req.files.image.path);
 	fs.readFile(req.files.image.path, function (err, data){
-		var newPath = "./uploads/" + req.files.image.originalFilename;
+		var date = new Date();
+
+		var newPath = "./uploads/" + date.getTime() + ".png";
+
 		fs.writeFile(newPath, data, function (err) {
 			if(err){
 				res.json({'response':"Error"+err});

@@ -3,6 +3,7 @@ var passport = require('passport');
 var config = require('../config/database');
 var router = express.Router();
 var jwt = require('jwt-simple');
+var fs = require('fs');
 
 require('../config/passport')(passport);
 
@@ -344,10 +345,31 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
                         });
                     }
                     else{
-                        res.json({
-                            success: true,
-                            msg: 'User profile updated successfully.'
-                        });
+
+                        if(req.files.image.path != undefined) {
+                            fs.readFile(req.files.image.path, function (err, data){
+                                var date = new Date();
+
+                                var newPath = "./uploads/" + date.getTime() + ".png";
+
+                                fs.writeFile(newPath, data, function (err) {
+                                    if(err){
+                                        res.json({'response' : err});
+                                    }else {
+                                        res.json({
+                                            success: true,
+                                            msg: 'User profile details & picture updated successfully.'
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        else {
+                            res.json({
+                                success: true,
+                                msg: 'User profile updated successfully.'
+                            });
+                        }
                     }
                 });
             }
