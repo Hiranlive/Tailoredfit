@@ -346,7 +346,7 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
                     }
                     else{
 
-                        if(req.files.image.path != undefined) {
+                        if(req.files.image != undefined) {
                             fs.readFile(req.files.image.path, function (err, data){
                                 var date = new Date();
 
