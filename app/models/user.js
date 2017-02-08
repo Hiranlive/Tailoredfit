@@ -25,6 +25,9 @@ var userSchema = mongoose.Schema({
     phone : {
         type : String
     },
+    profile_image : {
+        type : String
+    },
     salt: String,
     hash: String
 });
@@ -91,7 +94,7 @@ module.exports.removeUser = function(id, callback) {
     User.remove(query, callback);
 }
 
-module.exports.updateUser = function(id, user, options, callback) {
+module.exports.updateUser = function(id, user, image, options, callback) {
 
     var query = {_id : id};
     
@@ -103,6 +106,10 @@ module.exports.updateUser = function(id, user, options, callback) {
 
     if(user.phone != undefined && user.phone != "") {
         updatedUser['phone'] = user.phone;
+    }
+
+    if(image != undefined && image != "") {
+        updatedUser['profile_image'] = image;
     }
 
     if(user.password != undefined && user.password != "") {

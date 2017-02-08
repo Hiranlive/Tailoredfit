@@ -337,41 +337,50 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
-                User.updateUser(decoded._id, updateUser, {}, function(err, user_res) {
-                    if(err){
-                        res.json({
-                            success: false,
-                            msg: 'Invalid request.'
-                        });
-                    }
-                    else{
+                if(req.files.image != undefined) {
+                    fs.readFile(req.files.image.path, function (err, data){
+                        var image_name = (new Date()).getTime() + ".png";
 
-                        if(req.files.image != undefined) {
-                            fs.readFile(req.files.image.path, function (err, data){
-                                var date = new Date();
+                        var newPath = "./uploads/" + image_name;
 
-                                var newPath = "./uploads/" + date.getTime() + ".png";
-
-                                fs.writeFile(newPath, data, function (err) {
+                        fs.writeFile(newPath, data, function (err) {
+                            if(err){
+                                res.json({'response' : err});
+                            }else {
+                                User.updateUser(decoded._id, updateUser, image_name, {}, function(err, user_res) {
                                     if(err){
-                                        res.json({'response' : err});
-                                    }else {
                                         res.json({
+                                            success: false,
+                                            msg: 'Invalid request.'
+                                        });
+                                    }
+                                    else{
+                                         res.json({
                                             success: true,
                                             msg: 'User profile details & picture updated successfully.'
                                         });
                                     }
                                 });
+                            }
+                        });
+                    });
+                }
+                else {
+                    User.updateUser(decoded._id, updateUser, "", {}, function(err, user_res) {
+                        if(err){
+                            res.json({
+                                success: false,
+                                msg: 'Invalid request.'
                             });
                         }
-                        else {
+                        else{
                             res.json({
                                 success: true,
                                 msg: 'User profile updated successfully.'
                             });
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     } else {
