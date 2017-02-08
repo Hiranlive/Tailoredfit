@@ -8,7 +8,7 @@ router.post('/api/upload', function function_name(req, res) {
 	fs.readFile(req.files.image.path, function (err, data){
 		var date = new Date();
 
-		var newPath = "./uploads/ddd" + req.body.name + ".png";
+		var newPath = "./uploads/" + req.body.name + ".png";
 
 		fs.writeFile(newPath, data, function (err) {
 			if(err){

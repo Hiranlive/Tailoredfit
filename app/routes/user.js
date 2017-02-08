@@ -337,50 +337,20 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
-                if(req.files.image != undefined) {
-                    fs.readFile(req.files.image.path, function (err, data){
-                        var image_name = (new Date()).getTime() + ".png";
-
-                        var newPath = "./uploads/" + image_name;
-
-                        fs.writeFile(newPath, data, function (err) {
-                            if(err){
-                                res.json({'response' : err});
-                            }else {
-                                User.updateUser(decoded._id, updateUser, image_name, {}, function(err, user_res) {
-                                    if(err){
-                                        res.json({
-                                            success: false,
-                                            msg: 'Invalid request.'
-                                        });
-                                    }
-                                    else{
-                                         res.json({
-                                            success: true,
-                                            msg: 'User profile details & picture updated successfully.'
-                                        });
-                                    }
-                                });
-                            }
+                User.updateUser(decoded._id, updateUser, "", {}, function(err, user_res) {
+                    if(err){
+                        res.json({
+                            success: false,
+                            msg: 'Invalid request.'
                         });
-                    });
-                }
-                else {
-                    User.updateUser(decoded._id, updateUser, "", {}, function(err, user_res) {
-                        if(err){
-                            res.json({
-                                success: false,
-                                msg: 'Invalid request.'
-                            });
-                        }
-                        else{
-                            res.json({
-                                success: true,
-                                msg: 'User profile updated successfully.'
-                            });
-                        }
-                    });
-                }
+                    }
+                    else{
+                        res.json({
+                            success: true,
+                            msg: 'User profile updated successfully.'
+                        });
+                    }
+                });
             }
         });
     } else {
@@ -392,23 +362,22 @@ router.put('/api/update_user_settings', passport.authenticate('jwt', {
 });
 
 router.post('/api/images/upload', function function_name(req, res) {
-    fs.readFile(req.files.image.path, function (err, data){
-        var date = new Date();
+    if(req.files.image != undefined) {
+        fs.readFile(req.files.image.path, function (err, data){
+            var newPath = "./uploads/" + req.body.name + ".png";
 
-        var newPath = "./uploads/" + date.getTime() + ".png";
-
-        fs.writeFile(newPath, data, function (err) {
-            if(err){
-                res.json({'response':"Error"+err});
-            }else {
-                res.json({'response':"Saved"});
-                res.json({
-                    success: true,
-                    msg: 'User profile updated successfully.'
-                });
-            }
+            fs.writeFile(newPath, data, function (err) {
+                if(err){
+                    res.json({'response':"Error"+err});
+                }else {
+                    res.json({
+                        success: true,
+                        msg: 'User profile image uploaded successfully.'
+                    });
+                }
+            });
         });
-    });
+    }
 });
 
 router.get('/api/images/:file', function function_name(req, res) {
