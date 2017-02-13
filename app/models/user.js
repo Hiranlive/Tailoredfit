@@ -76,15 +76,12 @@ userSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-userSchema.methods.getUsers = function (callback, limit) {
-    User.findAll({type: {'$ne' : 'Admin'}}, callback).limit(limit);
-};
-
 var User = module.exports = mongoose.model('User', userSchema);
 
 // Get Users
 module.exports.getUsers = function(callback, limit) {
-    User.find(callback).limit(limit);
+    // User.find(callback).limit(limit);
+    User.findAll({type: {'$ne' : 'Admin'}}, callback).limit(limit);
 }
 
 // Remove Trainer
