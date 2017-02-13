@@ -21,15 +21,13 @@ router.post('/api/signup', function(req, res) {
         console.log(res);
     } else {
         var newUser = new User({
-            name: req.body.name,
-            email: req.body.email,
-            type: "Normal",
-            phone: req.body.phone,
-            password: req.body.password
+            name : req.body.name,
+            email : req.body.email,
+            type : "Normal",
+            phone : req.body.phone,
+            password : req.body.password,
+            profile_image : ""
         });
-
-        // Save the user
-        console.log('create new user: ' + newUser);
 
         newUser.save(function(err) {
             if (err) {
