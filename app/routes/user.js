@@ -153,46 +153,46 @@ router.get('/api/users', passport.authenticate('jwt', {
     }
 });
 
-// router.delete('/api/users/:_id', passport.authenticate('jwt', {
-//     session: false
-// }), function(req, res) {
-//     var token = getToken(req.headers);
-//     console.log('the token: ' + token);
+router.delete('/api/users/:_id', passport.authenticate('jwt', {
+    session: false
+}), function(req, res) {
+    var token = getToken(req.headers);
+    console.log('the token: ' + token);
 
-//     if (token) {
-//         var decoded = jwt.decode(token, config.secret);
-//         User.findOne({
-//             name : decoded.name,
-//             type : "Admin"
-//         }, function(err, user) {
-//             if (err) throw err;
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+        User.findOne({
+            name : decoded.name,
+            type : "Admin"
+        }, function(err, user) {
+            if (err) throw err;
 
-//             if (!user) {
-//                 return res.status(403).send({
-//                     success: false,
-//                     msg: 'Admin Authentication Required.'
-//                 });
-//             } else {
-//                 var id = req.params._id;
-//                 var user = req.body;
+            if (!user) {
+                return res.status(403).send({
+                    success: false,
+                    msg: 'Admin Authentication Required.'
+                });
+            } else {
+                var id = req.params._id;
+                var user = req.body;
 
-//                 User.removeUser(id, function(err, user) {
-//                     if(err){
-//                         throw err;
-//                     }
-//                     else{
-//                         res.json(user);
-//                     }
-//                 })
-//             }
-//         });
-//     } else {
-//         return res.status(403).send({
-//             success: false,
-//             msg: 'No token provided.'
-//         });
-//     }
-// });
+                User.removeUser(id, function(err, user) {
+                    if(err){
+                        throw err;
+                    }
+                    else{
+                        res.json(user);
+                    }
+                })
+            }
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+});
 
 //Normal users
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
